@@ -4,6 +4,7 @@ import TodoItemsRemaining from "./TodoItemsRemaining";
 import TodoClearCompleted from "./TodoClearCompleted";
 import TodoCompleteAllTodos from "./TodoCompleteAllTodos";
 import TodoFilters from "./TodoFilters";
+import useToggle from "../hooks/useToggle";
 
 TodoList.propTypes = {
   deleteTodo: PropTypes.func.isRequired,
@@ -18,6 +19,7 @@ TodoList.propTypes = {
 };
 
 function TodoList(props) {
+  const [oneVisible, setOneVisible] = useState(true);
   const [filter, setFilter] = useState("all");
 
   return (
@@ -80,11 +82,24 @@ function TodoList(props) {
         ))}
       </ul>
 
-      <div className="check-all-container">
-        <TodoCompleteAllTodos completeAllTodos={props.completeAllTodos} />
-        <TodoItemsRemaining remaining={props.remaining} />
+      <div className="toggles-container">
+        <button 
+          className="button"
+          onClick={() => setOneVisible(prevOneVisible => !prevOneVisible)}
+        >
+          Features One Toggle
+        </button>
+        <button className="button">
+          Features Two Toggle
+        </button>
       </div>
 
+      { oneVisible &&
+        <div className="check-all-container">
+          <TodoCompleteAllTodos completeAllTodos={props.completeAllTodos} />
+          <TodoItemsRemaining remaining={props.remaining} />
+        </div>
+      }
       <div className="other-buttons-container">
         <TodoFilters
           todosFiltered={props.todosFiltered}
