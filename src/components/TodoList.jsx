@@ -19,7 +19,8 @@ TodoList.propTypes = {
 };
 
 function TodoList(props) {
-  const [oneVisible, setOneVisible] = useState(true);
+  const [isFeaturesOneVisible, setFeaturesOneVisible] = useToggle();
+  const [isFeaturesTwoVisible, setFeaturesTwoVisible] = useToggle(false);
   const [filter, setFilter] = useState("all");
 
   return (
@@ -48,7 +49,7 @@ function TodoList(props) {
                   type="text"
                   className="todo-item-input"
                   defaultValue={todo.title}
-                  onBlur={() => props.updateTodo(event, todo.id)}
+                  onBlur={(event) => props.updateTodo(event, todo.id)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter") {
                       props.updateTodo(event, todo.id);
@@ -83,33 +84,29 @@ function TodoList(props) {
       </ul>
 
       <div className="toggles-container">
-        <button 
-          className="button"
-          onClick={() => setOneVisible(prevOneVisible => !prevOneVisible)}
-        >
-          Features One Toggle
-        </button>
-        <button className="button">
-          Features Two Toggle
-        </button>
+        <button onClick={setFeaturesOneVisible} className="button">Features One Toggle</button>
+        <button onClick={setFeaturesTwoVisible} className="button">Features Two Toggle</button>
       </div>
 
-      { oneVisible &&
+      { isFeaturesOneVisible && (
         <div className="check-all-container">
           <TodoCompleteAllTodos completeAllTodos={props.completeAllTodos} />
           <TodoItemsRemaining remaining={props.remaining} />
         </div>
-      }
-      <div className="other-buttons-container">
-        <TodoFilters
-          todosFiltered={props.todosFiltered}
-          filter={filter}
-          setFilter={setFilter}
-        />
-        <div>
-          <TodoClearCompleted clearCompleted={props.clearCompleted} />
+      )}
+
+      { isFeaturesTwoVisible && (
+        <div className="other-buttons-container">
+          <TodoFilters
+            todosFiltered={props.todosFiltered}
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <div>
+            <TodoClearCompleted clearCompleted={props.clearCompleted} />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
