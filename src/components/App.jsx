@@ -30,17 +30,11 @@ function App() {
 
   useEffect(() => {
     nameInputEl.current.focus();
-
-    //setName(JSON.parse(localStorage.getItem('name')) ?? '');
-
-    return function cleanup() {
-      //console.log('test');
-    }
+    return function cleanup() {}
   }, []);
 
   function handleNameInput(event) {
     setName(event.target.value);
-    //localStorage.setItem('name', JSON.stringify(event.target.value));
   }
 
   return (
