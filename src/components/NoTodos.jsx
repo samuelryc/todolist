@@ -201,7 +201,6 @@ export default function NoTodos() {
             fill="#e6e7e8"
           />
         </svg>
-        <p>Add some todos...</p>
       </div>
     </div>
   );
