@@ -14,9 +14,6 @@ export default function NavigationBar() {
                 <li>
                     <NavLink to="/contact" activeClassName="active">Contact</NavLink>
                 </li>
-                <li>
-                    <NavLink to="/blog" activeClassName="active">Blog</NavLink>
-                </li>
             </ul>
         </nav>
     )
